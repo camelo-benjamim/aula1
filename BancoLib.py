@@ -8,6 +8,13 @@ class Conta():
 
     def deposite(self, valor):
         self.saldo = self.saldo + valor
+        
+    def saque(self,valor):
+        if self.saldo - valor >=0:
+            self.saldo = self.saldo - valor
+        else:
+            return -1
+
 
 
 class Banco():
@@ -35,6 +42,12 @@ class Banco():
             if conta.numero == numConta:
                 conta.deposite(valor)
 
+    def sacar(self,numConta,valor):
+        for conta in self.contas:
+            if conta.numero == numConta:
+                saque = conta.saque(valor)
+                return saque
+
 
 print("Bem-vindo")
 bancoUfrpe = Banco("UABJ")
@@ -43,6 +56,8 @@ print("0 - Sair")
 print("1 - Criar uma Nova Conta")
 print("2 - Consultar Saldo Conta")
 print("3 - Depositar na Conta")
+print("4 - Sacar na Conta")
+print("5 - Apagar conta ")
 escolha = int(input("digite a opção desejada:"))
 while escolha > 0:
     if escolha == 1:
@@ -61,4 +76,13 @@ while escolha > 0:
         valor = int(input("digite o valor que deseja depositar:"))
         saldo = bancoUfrpe.depositar(numConta, valor)
         print("Valor Depositado")
+    elif escolha == 4:
+        print("Sacando Conta... ")
+        numConta = int(input("digite o numero da conta:"))
+        valor = int(input("digite o valor que deseja depositar:"))
+        saldo = bancoUfrpe.sacar(numConta, valor)
+        if saldo == -1:
+            print("Valor indisponível para saque!")
+        else:
+            print("Valor Sacado com sucesso")
     escolha = int(input("digite a opção desejada:"))
